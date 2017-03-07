@@ -10,9 +10,18 @@ def handle(msg):
         checkMsg(chat_id, msg['text'])
 
 def checkMsg(chat_id, msg):
-    js_strs = ("js", "javascript")
+    js_strs = ("js", "javascript", "ecma script", "ecma", "ecma6")
+    cpp_strs = ("c++", "Bjarne Stroustrup", "c plus plus", "c with classes")
+    oop_strs = ("OOP", "POO", "programação orientada a objetos")
+    
     if any(s in msg.lower() for s in js_strs):
-        bot.sendMessage(chat_id, "JS sucks!")
+        bot.sendMessage(chat_id, "JS sucks! Stop using it.")
+    
+    if any(s in msg.lower() for s in cpp_strs):
+        bot.sendMessage(chat_id, "C++ sucks! Stop using it.")
+           
+    if any(s in msg.lower() for s in oop_strs):
+        bot.sendMessage(chat_id, "Such overrated concept, use functional paradigms!!!!!")
 
 TOKEN = sys.argv[1]  # get token from command-line
 
