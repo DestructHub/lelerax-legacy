@@ -13,6 +13,7 @@ def checkMsg(chat_id, msg):
     js_strs = ("js", "javascript")
     if any(s in msg.lower() for s in js_strs):
         bot.sendMessage(chat_id, "JS sucks!")
+        bot.sendSticker(chat_id, "CAADAQAD3QAD5G3CCfzBqgbKrcVvAg") 
 
 TOKEN = sys.argv[1]  # get token from command-line
 
