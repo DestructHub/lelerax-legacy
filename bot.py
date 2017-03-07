@@ -15,7 +15,7 @@ def checkMsg(chat_id, msg, id):
     java_strs = ("java", "java lambdas")
     oop_strs = ("opp", "poo", "programacao orientada a objetos")
     nice_strs = ("python", "haskell", "erlang", "c", "lua", "brain", "lisp", "garnet")
-    manoel_strs = ("manoel", "@lerax", "@lelerax")
+    manoel_strs = ("manoel", "@lerax", "@lelerax", "lerax")
     hell_strs = ("satan", "diabo", "demonio", "inferno", "fogo", "hell")
     bom_strs = ("bom", "que bom", "kibon", "massa", "funciona", "funcionando", "funcionou", "rodar", "rodou", "compilar", "compilou")
     hue_strs = ("hue", "hu3", "br", "brasil", "brazil", "haha", "kkkk")
