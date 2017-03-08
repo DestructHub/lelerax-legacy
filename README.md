@@ -4,8 +4,8 @@
 
 <p align="center">
   <a href="">
-    <img alt="Oi" src="./img/oi_chat.jpg" width="100px">
-    <img alt="Suissa" src="./img/suissa_chat.jpg" width="100px">
+    <img alt="Oi" src="./img/oi_chat.jpg" width="300px">
+    <img alt="Suissa" src="./img/suissa_chat.jpg" width="300px">
   </a>
 </p>
 
