@@ -1,3 +1,5 @@
+# coding: utf-8
+
 import sys
 import time
 import os
@@ -20,8 +22,9 @@ def handle(msg):
 
     if content_type == 'text':
         if DEBUG:
-            print(f"Log = cont: {content_type!r} - chat_type: {chat_type!r} - chat_id: {chat_id!r}")
-            print(f"Msg = {msg['text']!r}")
+            template_log = "Log = cont: {!r} - chat_type: {!r} - chat_id: {!r}"
+            print(template_log.format(content_type, chat_type, chat_id))
+            print("Msg = {}".format(msg['text']))
         bot_engine(chat_id, msg['text'], msg['message_id'])
 
 
@@ -64,16 +67,16 @@ def bot_answers(chat_id, msg, message_id):
     stk_bool = react()
 
     if any(s in m for s in js_strs):
-        res = "JS uma porra!\nJS e` tao cancer que comeca com J, de Javascript"
+        res = "JavaScript o carai!\n Coisa nojenta do caralho. Merece morrer."
         sticker = stk_fodase if randint(0, 10) else stk_queromorre
     elif any(s in m for s in cpp_strs):
         res = "C++ eh cancer!."
     elif any(s in m for s in oop_strs):
-        res = "Ja ouviu falar de FP?"
+        res = "Quantos objetos... AI MEU DEUS UMA CONDIÇÃO DE CORRIDA."
     elif any(s in m for s in java_strs):
-        res = "Continue to use that crap and you're out."
+        res = "Cara, vai ler um livro de programação de verdade... coisa triste."
     elif any(s in m for s in nice_strs):
-        res = "delicia"
+        res = "Excelente"
         sticker = stk_delicia1 if react() else stk_delicia2
     elif "monstro" in msg_norm:
         sticker = stk_monstro
@@ -84,15 +87,15 @@ def bot_answers(chat_id, msg, message_id):
             bot.sendSticker(chat_id, stk_card)
         sticker = stk_kibon if react() else stk_flip
     elif any(s in msg_norm for s in hue_strs):
-        res = "AHUHAAUUhuahua"
+        res = "kkkkkkkk"
         sticker = stk_hue
     elif "suissa" in msg_norm:
-        res = "o suissa eh tao cancer q chamam  ele de JS AUEHAUH"
+        res = "O Suissa é tao cancer que chamam ele de JS HAHAHAHA"
         sticker = stk_hue
     elif any(s in msg_norm for s in manoel_strs) and "voltar" in msg_norm:
-        res = "to aqui carai"
+        res = "To aqui, carai!"
     elif any(s in msg_norm for s in manoel_strs):
-        res = "oi"
+        res = "Oi"
 
     if res:
         bot.sendMessage(chat_id, res, reply_to_message_id=message_id)
