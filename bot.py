@@ -5,6 +5,7 @@ import telepot
 
 UAPDA = -1001096359543  # UAPDA chat id, where lelerax born
 TOKEN = sys.argv[1]  # get token from command-line
+bot = telepot.Bot(TOKEN)
 
 
 def handle(msg):
@@ -86,7 +87,6 @@ def bot_engine(chat_id, msg, id):
 
 
 def repl(chat_id):
-    bot = telepot.Bot(TOKEN)
     try:
         while True:
             msg = input("> ")
@@ -100,8 +100,7 @@ def repl(chat_id):
         exit(1)
 
 
-def bot():
-    bot = telepot.Bot(TOKEN)
+def bot_loop():
     bot.message_loop(handle)
     print('Listening ...')
 
@@ -114,7 +113,7 @@ def main():
     if sys.argv[2] == 'repl':
         repl(UAPDA)
     elif sys.argv[2] == 'bot':
-        bot()
+        bot_loop()
 
 
 if __name__ == '__main__':
