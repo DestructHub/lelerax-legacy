@@ -1,23 +1,38 @@
 import sys
 import time
+import os
 from random import randint
 import telepot
 
 UAPDA = -1001096359543  # UAPDA chat id, where lelerax born
 TOKEN = sys.argv[1]  # get token from command-line
 bot = telepot.Bot(TOKEN)
+REACT_FACTOR = 10  # probability between of react: from 0 to 100 (max reaction)
+DEBUG = os.environ.get('DEBUG')
+
+
+def react():
+    return randint(1, 100//REACT_FACTOR) == 1
 
 
 def handle(msg):
     content_type, chat_type, chat_id = telepot.glance(msg)
 
     if content_type == 'text':
-        # print(f"Log = cont: {content_type!r} - chat_type: {chat_type!r} - chat_id: {chat_id!r}")
-        # print(f"Msg = {msg['text']!r}")
+        if DEBUG:
+            print(f"Log = cont: {content_type!r} - chat_type: {chat_type!r} - chat_id: {chat_id!r}")
+            print(f"Msg = {msg['text']!r}")
         bot_engine(chat_id, msg['text'], msg['message_id'])
 
 
-def bot_engine(chat_id, msg, id):
+def bot_engine(chat_id, msg, message_id):
+    if msg.lower().startswith("/uapda"):
+        bot.sendMessage(UAPDA, msg.strip("/uapda"))
+    else:
+        bot_answers(chat_id, msg, message_id)
+
+
+def bot_answers(chat_id, msg, message_id):
     js_strs = ("js", "javascript", "ecma script", "ecma", "ecma6")
     cpp_strs = ("c++", "bjarne stroustrup", "c plus plus", "c with classes",
                 "cpp")
@@ -46,11 +61,11 @@ def bot_engine(chat_id, msg, id):
     m = msg_norm.split()
     sticker = ""
     res = ""
-    stk_bool = randint(0, 1)
+    stk_bool = react()
 
     if any(s in m for s in js_strs):
         res = "JS uma porra!\nJS e` tao cancer que comeca com J, de Javascript"
-        sticker = stk_fodase if randint(0, 1) else stk_queromorre
+        sticker = stk_fodase if randint(0, 10) else stk_queromorre
     elif any(s in m for s in cpp_strs):
         res = "C++ eh cancer!."
     elif any(s in m for s in oop_strs):
@@ -59,7 +74,7 @@ def bot_engine(chat_id, msg, id):
         res = "Continue to use that crap and you're out."
     elif any(s in m for s in nice_strs):
         res = "delicia"
-        sticker = stk_delicia1 if randint(0, 1) else stk_delicia2
+        sticker = stk_delicia1 if react() else stk_delicia2
     elif "monstro" in msg_norm:
         sticker = stk_monstro
     elif any(s in m for s in hell_strs):
@@ -67,7 +82,7 @@ def bot_engine(chat_id, msg, id):
     elif any(s in m for s in bom_strs):
         if stk_bool:
             bot.sendSticker(chat_id, stk_card)
-        sticker = stk_kibon if randint(0, 1) else stk_flip
+        sticker = stk_kibon if react() else stk_flip
     elif any(s in msg_norm for s in hue_strs):
         res = "AHUHAAUUhuahua"
         sticker = stk_hue
@@ -80,7 +95,7 @@ def bot_engine(chat_id, msg, id):
         res = "oi"
 
     if res:
-        bot.sendMessage(chat_id, res, reply_to_message_id=id)
+        bot.sendMessage(chat_id, res, reply_to_message_id=message_id)
 
     if sticker and stk_bool:
         bot.sendSticker(chat_id, sticker)
