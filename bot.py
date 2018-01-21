@@ -32,10 +32,10 @@ def handle(msg):
 
 def bot_engine(chat_id, msg, message_id):
     if msg.lower().startswith("/uapda"):
-        stripped = msg.strip("/uapda")
-        if stripped:
-            bot.sendMessage(UAPDA, stripped)
-            print("LOG: UAPDA -> {!r}".format(stripped))
+        clean_msg = msg.replace("/uapda", "").strip()
+        if clean_msg:
+            bot.sendMessage(UAPDA, clean_msg)
+            print("LOG: UAPDA -> {!r}".format(clean_msg))
     else:
         bot_answers(chat_id, msg, message_id)
 
