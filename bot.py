@@ -3,7 +3,9 @@
 import sys
 import time
 import os
+from pprint import pprint
 from random import randint
+from datetime import datetime
 import telepot
 
 UAPDA = -1001096359543  # UAPDA chat id, where lelerax born
@@ -19,18 +21,21 @@ def react():
 
 def handle(msg):
     content_type, chat_type, chat_id = telepot.glance(msg)
-
+    if DEBUG:
+        print("LOG: {}".format(datetime.now()))
+        debug = dict(msg=msg, content_type=content_type,
+                     chat_type=chat_type, chat_id=chat_id)
+        pprint(debug)
     if content_type == 'text':
-        if DEBUG:
-            template_log = "Log = cont: {!r} - chat_type: {!r} - chat_id: {!r}"
-            print(template_log.format(content_type, chat_type, chat_id))
-            print("Msg = {}".format(msg['text']))
         bot_engine(chat_id, msg['text'], msg['message_id'])
 
 
 def bot_engine(chat_id, msg, message_id):
     if msg.lower().startswith("/uapda"):
-        bot.sendMessage(UAPDA, msg.strip("/uapda"))
+        stripped = msg.strip("/uapda")
+        if stripped:
+            bot.sendMessage(UAPDA, stripped)
+            print("LOG: UAPDA -> {!r}".format(stripped))
     else:
         bot_answers(chat_id, msg, message_id)
 
