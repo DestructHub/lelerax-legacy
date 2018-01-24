@@ -113,9 +113,12 @@ def repl(chat_id):
     try:
         while True:
             msg = input("> ")
-            bot.sendMessage(chat_id, msg)
             if msg == "/quit":
                 break
+            elif msg.startswith("/img"):
+                bot.sendPhoto(chat_id, open(msg[4:].strip(), "rb"))
+            else:
+                bot.sendMessage(chat_id, msg)
     except Exception as EOFError:
         exit(0)
     except Exception as e:
