@@ -71,16 +71,16 @@ def bot_answers(chat_id, msg, message_id):
     res = ""
     stk_bool = react()
 
-    if react(40) and any(s in m for s in js_strs):
+    if react(20) and any(s in m for s in js_strs):
         res = ":[ Jesus amado, JavaScript não... por favor."
         sticker = stk_fodase if react(10) else stk_queromorre
-    elif react(30) and any(s in m for s in cpp_strs):
+    elif react(20) and any(s in m for s in cpp_strs):
         res = "C++... hmmm, pelo menos é melhor que Java e, obviamente, JS."
-    elif react(40) and any(s in m for s in oop_strs):
+    elif react(20) and any(s in m for s in oop_strs):
         res = "Quantos objetos... AI MEU DEUS UMA CONDIÇÃO DE CORRIDA."
-    elif react(50) and any(s in m for s in java_strs):
+    elif react(20) and any(s in m for s in java_strs):
         res = "Cara, Java? Aproveita e vai ler um livro de programação de verdade... coisa triste."
-    elif any(s in m for s in nice_strs):
+    elif react(50) and any(s in m for s in nice_strs):
         res = "Excelente! Eu gostei."
         sticker = stk_delicia1 if react() else stk_delicia2
     elif "monstro" in msg_norm:
@@ -91,7 +91,7 @@ def bot_answers(chat_id, msg, message_id):
         if stk_bool:
             bot.sendSticker(chat_id, stk_card)
         sticker = stk_kibon if react() else stk_flip
-    elif any(s in msg_norm for s in hue_strs):
+    elif react(5) and any(s in msg_norm for s in hue_strs):
         res = "kkkkkkkk"
         sticker = stk_hue
     elif "suissa" in msg_norm:
