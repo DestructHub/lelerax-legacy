@@ -13,10 +13,11 @@ TOKEN = sys.argv[1]  # get token from command-line
 bot = telepot.Bot(TOKEN)
 REACT_FACTOR = 10  # probability between of react: from 0 to 100 (max reaction)
 DEBUG = os.environ.get('DEBUG')
+ANSWER_THIS_SHIT = False
 
 
 def react(x=REACT_FACTOR):
-    return randint(1, 100//x) == 1
+    return randint(1, 100//x) == 1 or ANSWER_THIS_SHIT
 
 
 def handle(msg):
@@ -41,6 +42,7 @@ def bot_engine(chat_id, msg, message_id):
 
 
 def bot_answers(chat_id, msg, message_id):
+    global ANSWER_THIS_SHIT
     js_strs = ("js", "javascript", "ecma script", "ecma", "ecma6")
     cpp_strs = ("c++", "bjarne stroustrup", "c plus plus", "c with classes",
                 "cpp")
@@ -71,6 +73,9 @@ def bot_answers(chat_id, msg, message_id):
     res = ""
     stk_bool = react()
 
+    if 'lelerax' in msg_norm:
+        ANSWER_THIS_SHIT = True
+
     if react(20) and any(s in m for s in js_strs):
         res = ":[ Jesus amado, JavaScript não... por favor."
         sticker = stk_fodase if react(10) else stk_queromorre
@@ -94,7 +99,7 @@ def bot_answers(chat_id, msg, message_id):
     elif react(5) and any(s in msg_norm for s in hue_strs):
         res = "kkkkkkkk"
         sticker = stk_hue
-    elif "suissa" in msg_norm:
+    elif react(30) and "suissa" in msg_norm:
         res = "Não profira nome de demônio na casa sagrada do resto da APDA que presta."
         sticker = stk_hue
     elif react(50) and any(s in msg_norm for s in manoel_strs) and "voltar" in msg_norm:
@@ -107,6 +112,8 @@ def bot_answers(chat_id, msg, message_id):
 
     if sticker and stk_bool:
         bot.sendSticker(chat_id, sticker)
+
+    ANSWER_THIS_SHIT = False
 
 
 def repl(chat_id):
