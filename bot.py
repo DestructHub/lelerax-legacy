@@ -96,14 +96,14 @@ def bot_engine(chat_id, msg, message_id):
 def bot_answers(chat_id, msg, message_id):
     global ANSWER_THIS_SHIT
 
+    if not react(30):
+        return  # skip this message
+
     msg_norm = msg.lower()
     m = msg_norm.split()
     sticker_flag = react()
     sticker = ""
     res = ""
-
-    if not react(30):
-        return  # skip this message
 
     if 'lelerax' in msg_norm:
         ANSWER_THIS_SHIT = True
