@@ -15,8 +15,8 @@ REACT_FACTOR = 10  # probability between of react: from 0 to 100 (max reaction)
 DEBUG = os.environ.get('DEBUG')
 
 
-def react():
-    return randint(1, 100//REACT_FACTOR) == 1
+def react(x=REACT_FACTOR):
+    return randint(1, 100//x) == 1
 
 
 def handle(msg):
@@ -71,17 +71,17 @@ def bot_answers(chat_id, msg, message_id):
     res = ""
     stk_bool = react()
 
-    if any(s in m for s in js_strs):
-        res = "JavaScript o carai!\n Coisa nojenta do caralho. Merece morrer."
-        sticker = stk_fodase if randint(0, 10) else stk_queromorre
-    elif any(s in m for s in cpp_strs):
-        res = "C++ eh cancer!."
-    elif any(s in m for s in oop_strs):
+    if react(40) and any(s in m for s in js_strs):
+        res = ":[ Jesus amado, JavaScript não... por favor."
+        sticker = stk_fodase if react(10) else stk_queromorre
+    elif react(30) and any(s in m for s in cpp_strs):
+        res = "C++... hmmm, pelo menos é melhor que Java e, obviamente, JS."
+    elif react(40) and any(s in m for s in oop_strs):
         res = "Quantos objetos... AI MEU DEUS UMA CONDIÇÃO DE CORRIDA."
-    elif any(s in m for s in java_strs):
-        res = "Cara, vai ler um livro de programação de verdade... coisa triste."
+    elif react(50) and any(s in m for s in java_strs):
+        res = "Cara, Java? Aproveita e vai ler um livro de programação de verdade... coisa triste."
     elif any(s in m for s in nice_strs):
-        res = "Excelente"
+        res = "Excelente! Eu gostei."
         sticker = stk_delicia1 if react() else stk_delicia2
     elif "monstro" in msg_norm:
         sticker = stk_monstro
@@ -95,11 +95,11 @@ def bot_answers(chat_id, msg, message_id):
         res = "kkkkkkkk"
         sticker = stk_hue
     elif "suissa" in msg_norm:
-        res = "O Suissa é tao cancer que chamam ele de JS HAHAHAHA"
+        res = "Não profira nome de demônio na casa sagrada do resto da APDA que presta."
         sticker = stk_hue
-    elif any(s in msg_norm for s in manoel_strs) and "voltar" in msg_norm:
+    elif react(50) and any(s in msg_norm for s in manoel_strs) and "voltar" in msg_norm:
         res = "To aqui, carai!"
-    elif any(s in msg_norm for s in manoel_strs):
+    elif react(50) and any(s in msg_norm for s in manoel_strs):
         res = "Oi"
 
     if res:
