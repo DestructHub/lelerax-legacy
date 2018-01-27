@@ -68,7 +68,6 @@ stickers = {
 }
 
 
-
 def react(x=REACT_FACTOR):
     return randint(1, 100//x) == 1 or ANSWER_THIS_SHIT
 
@@ -99,15 +98,18 @@ def bot_answers(chat_id, msg, message_id):
 
     msg_norm = msg.lower()
     m = msg_norm.split()
+    sticker_flag = react()
     sticker = ""
     res = ""
-    stk_bool = react()
+
+    if not react(30):
+        return  # skip this message
 
     if 'lelerax' in msg_norm:
         ANSWER_THIS_SHIT = True
 
     for category, keys in keywords.items():
-        if react(30) and category in reactions and any(s in m for s in keys):
+        if category in reactions and any(s in m for s in keys):
             res = choice(reactions[category])
 
     if "monstro" in msg_norm:
@@ -115,14 +117,14 @@ def bot_answers(chat_id, msg, message_id):
     elif any(s in m for s in keywords["hell"]):
         sticker = stickers["satan"]
     elif any(s in m for s in keywords["bom"]):
-        if stickers["bool"]:
+        if sticker_flag:
             bot.sendSticker(chat_id, stickers["card"])
         sticker = stickers["kibon"] if react() else stickers["flip"]
 
     if res:
         bot.sendMessage(chat_id, res, reply_to_message_id=message_id)
 
-    if sticker and stickers["bool"]:
+    if sticker and sticker_flag():
         bot.sendSticker(chat_id, sticker)
 
     ANSWER_THIS_SHIT = False
