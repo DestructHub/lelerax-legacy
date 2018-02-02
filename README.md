@@ -17,8 +17,8 @@
 2. Create a virtualenv at `env` dir, install deps and execute repl or bot:
 
 ``` shell
-virtualenv env
-source env/bin/activate
+python -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ./bot # use ./repl to talk at @uapda channel
 ```
