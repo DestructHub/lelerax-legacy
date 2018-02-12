@@ -10,6 +10,7 @@ import telepot
 from random import choice
 
 UAPDA = -1001096359543  # UAPDA chat id, where lelerax born
+LISP = -1001280636766
 TOKEN = sys.argv[1]  # get token from command-line
 bot = telepot.Bot(TOKEN)
 REACT_FACTOR = 10  # probability between of react: from 0 to 100 (max reaction)
@@ -46,7 +47,7 @@ reactions = {
     "nice": ("Excelente! Eu gostei.", "Aê, aprovado!", "Porra, muito bom, cara!",
              "Ensina aí pra nóis", "Assim eu gosto", "Tem que ser assim mesmo!"),
     "manoel": ("To aqui, carai!", "Oi"),
-    "hell": ("Não profira nome de demônio na casa sagrada do resto da APDA que presta.",
+    "hell": ("Coisa do demônio!.",
              "Rapaz que parada mais cancer."),
     "hue": ("kkkkkkkk", "caramba kkk", "carai mano kkkk", "porra kkkk", "fala serio kkkk",
             "toma kkkkk"),
@@ -82,14 +83,20 @@ def handle(msg):
     if content_type == 'text':
         bot_engine(chat_id, msg['text'], msg['message_id'])
 
+def anonymouns_message(command, chat_id, msg):
+    if msg.lower().startswith(command):
+        clean_msg = msg.replace(command, "").strip()
+        if clean_msg:
+            bot.sendMessage(chat_id, clean_msg)
+            print("LOG: {!r} -> {!r}".format(command, clean_msg))
+            return True
+
+    return False
+
 
 def bot_engine(chat_id, msg, message_id):
-    if msg.lower().startswith("/uapda"):
-        clean_msg = msg.replace("/uapda", "").strip()
-        if clean_msg:
-            bot.sendMessage(UAPDA, clean_msg)
-            print("LOG: UAPDA -> {!r}".format(clean_msg))
-    else:
+    anonymouns_message("/uapda", UAPDA, msg) or  \
+        anonymouns_message("/lisp", LISP, msg) or \
         bot_answers(chat_id, msg, message_id)
 
 
