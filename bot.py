@@ -11,6 +11,11 @@ from random import choice
 
 UAPDA = -1001096359543  # UAPDA chat id, where lelerax born
 LISP = -1001280636766
+CHATS = {
+    'uapda': UAPDA,
+    'lisp': LISP
+}
+
 TOKEN = sys.argv[1]  # get token from command-line
 bot = telepot.Bot(TOKEN)
 REACT_FACTOR = 10  # probability between of react: from 0 to 100 (max reaction)
@@ -137,14 +142,18 @@ def bot_answers(chat_id, msg, message_id):
     ANSWER_THIS_SHIT = False
 
 
-def repl(chat_id):
+def repl(chat):
     try:
+        chat_id = CHATS[chat]
         while True:
-            msg = input("> ")
+            msg = input("{}> ".format(chat))
             if msg == "/quit":
                 break
             elif msg.startswith("/img"):
                 bot.sendPhoto(chat_id, open(msg[4:].strip(), "rb"))
+            elif msg.startswith("/chat"):
+                chat = msg.split()[1].lower()
+                chat_id = CHATS[chat]
             else:
                 bot.sendMessage(chat_id, msg)
     except Exception as EOFError:
@@ -165,7 +174,7 @@ def bot_loop():
 
 def main():
     if sys.argv[2] == 'repl':
-        repl(UAPDA)
+        repl('uapda')
     elif sys.argv[2] == 'bot':
         bot_loop()
 
