@@ -150,7 +150,9 @@ def repl(chat):
             if msg == "/quit":
                 break
             elif msg.startswith("/img"):
-                bot.sendPhoto(chat_id, open(msg[4:].strip(), "rb"))
+                bot.sendPhoto(chat_id, open(msg.split()[1].strip(), "rb"))
+            elif msg.startswith("/file"):
+                bot.sendDocument(chat_id, open(msg.split()[1].strip(), "rb"))
             elif msg.startswith("/chat"):
                 chat = msg.split()[1].lower()
                 chat_id = CHATS[chat]
