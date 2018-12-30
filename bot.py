@@ -18,7 +18,7 @@ CHATS = {
 
 TOKEN = sys.argv[1]  # get token from command-line
 bot = telepot.Bot(TOKEN)
-REACT_FACTOR = 10  # probability between of react: from 0 to 100 (max reaction)
+REACT_FACTOR = 5  # probability between of react: from 0 to 100 (max reaction)
 DEBUG = os.environ.get('DEBUG')
 ANSWER_THIS_SHIT = False
 
@@ -108,9 +108,6 @@ def bot_engine(chat_id, msg, message_id):
 def bot_answers(chat_id, msg, message_id):
     global ANSWER_THIS_SHIT
 
-    if not react(30):
-        return  # skip this message
-
     msg_norm = msg.lower()
     m = msg_norm.split()
     sticker_flag = react()
@@ -133,7 +130,7 @@ def bot_answers(chat_id, msg, message_id):
             bot.sendSticker(chat_id, stickers["card"])
         sticker = stickers["kibon"] if react() else stickers["flip"]
 
-    if res:
+    if react() and res:
         bot.sendMessage(chat_id, res, reply_to_message_id=message_id)
 
     if sticker and sticker_flag():
