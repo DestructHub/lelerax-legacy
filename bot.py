@@ -152,6 +152,8 @@ def repl(chat):
                 bot.sendPhoto(chat_id, open(msg.split()[1].strip(), "rb"))
             elif msg.startswith("/file"):
                 bot.sendDocument(chat_id, open(msg.split()[1].strip(), "rb"))
+            elif msg.startswith("/leave"):
+                bot.leaveChat(chat_id)
             elif msg.startswith("/chat"):
                 chat = msg.split()[1].lower()
                 chat_id = CHATS[chat]
