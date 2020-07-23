@@ -11,9 +11,11 @@ from random import choice
 
 UAPDA = -1001096359543  # UAPDA chat id, where lelerax born
 LISP = -1001280636766
+KADICU= -1001444576606
 CHATS = {
     'uapda': UAPDA,
-    'lisp': LISP
+    'lisp': LISP,
+    'kadicu': KADICU,
 }
 
 TOKEN = sys.argv[1]  # get token from command-line
